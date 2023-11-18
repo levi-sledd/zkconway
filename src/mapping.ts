@@ -2,6 +2,118 @@
 import { BigInt, require } from "@hyperoracle/zkgraph-lib";
 import { Bytes, Block, Event } from "@hyperoracle/zkgraph-lib";
 
+// //@ts-ignore
+// import { ByteArray, Bytes, BigInt, require } from "@hyperoracle/zkgraph-lib";
+// import { Event } from "@hyperoracle/zkgraph-lib";
+
+// function emptyGameBoard(): i8[][] {
+//   let emptyGameBoardRow: i8[] = [];
+//   for (var i = 0; i < 34; i++) {
+//     emptyGameBoardRow.push(0);
+//   }
+//   let emptyGameBoard: i8[][] = [];
+//   for (var i = 0; i < 34; i++) {
+//     emptyGameBoard.push(emptyGameBoardRow);
+//   }
+//   return emptyGameBoard;
+// }
+
+// function writeGameBoardFromRedAndBlueCoordinates(
+//   red_x_coords: u8[],
+//   red_y_coords: u8[],
+//   blue_x_coords: u8[],
+//   blue_y_coords: u8[]
+// ) {
+//   // TODO: Check that red_x_coords and red_y_coords are the same length
+//   // (and same for blue)
+//   let gameBoard: i8[][] = emptyGameBoard();
+//   for (var i = 0; i < red_x_coords.length; i++) {
+//     gameBoard[red_x_coords[i]][red_y_coords[i]] = 1;
+//   }
+//   for (var i = 0; i < blue_x_coords.length; i++) {
+//     gameBoard[blue_x_coords[i]][blue_y_coords[i]] = -1;
+//   }
+// }
+
+// function updateGameBoard(gameBoard: i8[][]): i8[][] {
+//   let newGameBoard = emptyGameBoard();
+//   for (var i = 0; i < 34; i++) {
+//     // To make the math of updating the state easier, there is a wall of zeroes
+//     // around the game board that never changes.
+//     for (var j = 0; j < 34; j++) {
+//       // If the cell currently under consideration is in the wall of zeroes, don't change it.
+//       if (!(i == 0 || j == 0 || i == 33 || j == 33)) {
+//         let signedNeighborhoodSum: i8 =
+//           gameBoard[i - 1][j - 1] +
+//           gameBoard[i - 1][j] +
+//           gameBoard[i - 1][j + 1] +
+//           gameBoard[i][j - 1] +
+//           gameBoard[i][j + 1] +
+//           gameBoard[i + 1][j - 1] +
+//           gameBoard[i + 1][j + 1];
+//         // It's an i8 but it's always positive.
+//         let unsignedNeighborhoodSum: i8 = abs(signedNeighborhoodSum);
+//         let isAlive: i8 = abs(gameBoard[i][j]);
+//         // If the cell has 1 or fewer neighbors, or 4 or more neighbors, it dies.
+//         if (unsignedNeighborhoodSum <= 1 || unsignedNeighborhoodSum >= 4) {
+//           newGameBoard[i][j] = 0;
+//         }
+//         // If the cell has three neighbors, it takes the color of the majority
+//         // around it, whether or not it is currently alive or dead.
+//         else if (unsignedNeighborhoodSum == 3 && signedNeighborhoodSum > 0) {
+//           newGameBoard[i][j] = 1;
+//         } else if (unsignedNeighborhoodSum == 3 && signedNeighborhoodSum < 0) {
+//           newGameBoard[i][j] = -1;
+//         }
+//         // If the cell is alive and has two red neighbors, it turns red.
+//         else if (
+//           unsignedNeighborhoodSum == 2 &&
+//           isAlive == 1 &&
+//           signedNeighborhoodSum == 2
+//         ) {
+//           newGameBoard[i][j] = 1;
+//         }
+//         // If the cell is alive and has two blue neighbors, it turns blue.
+//         else if (
+//           unsignedNeighborhoodSum == 2 &&
+//           isAlive == 1 &&
+//           signedNeighborhoodSum == -2
+//         ) {
+//           newGameBoard[i][j] = -1;
+//         }
+//         // If the cell is alive and has two neighbors, one red and one blue,
+//         // it remains the same as it was in the last step.
+//         else if (
+//           unsignedNeighborhoodSum == 2 &&
+//           isAlive &&
+//           signedNeighborhoodSum == 0
+//         ) {
+//           newGameBoard[i][j] = gameBoard[i][j];
+//         }
+//         // The only remaining case is that the cell has two neighbors and
+//         // it is dead, in which case it stays dead.
+//         else {
+//           newGameBoard[i][j] = 0;
+//         }
+//       }
+//     }
+//   }
+//   return newGameBoard;
+// }
+
+// export function handleEvents(events: Event[]): Bytes {
+//   // let state = new Bytes(0);
+//   // if (events.length > 0) state = events[0].address;
+
+//   // require(state.length === 20);
+//   // return state;
+//   let reserve0 = BigInt.fromBytesBigEndian(events[0].data.slice(0, 32));
+//   let reserve1 = BigInt.fromBytesBigEndian(events[0].data.slice(32, 64));
+//   let sum_hexstring = reserve0.plus(reserve1).toHexString();
+//   let sum_bytes = Bytes.fromHexString(sum_hexstring);
+//   return sum_bytes;
+// }
+
 let addr = Bytes.fromHexString("0xa60ecf32309539dd84f27a9563754dca818b815e");
 let esig_sync = Bytes.fromHexString(
   "0x1c411e9a96e071241c2f21f7726b17ae89e3cab4c78be50e062b03a9fffbbad1"
