@@ -146,9 +146,33 @@ export function handleBlocks(blocks: Block[]): Bytes {
   // set state to the address of the 1st (matched) event, demo purpose only.
   // state = events[0].address;
   // return state;
-  let number_x = events[0].data.slice(160, 161); // should be 01.
-  let number_y = events[0].data.slice();
-  return number_x;
+  const red_x_offset = 160;
+  const red_y_offset = 224;
+  const blue_x_offset = 288;
+  const blue_y_offset = 354;
+
+  let num_red_cells = events[0].data.slice(159, 160)[0] as u8;
+  let red_x_coords = events[0].data.slice(160, 160 + num_red_cells);
+  let red_y_coords = events[0].data.slice(224, 224 + num_red_cells);
+
+  let num_blue_cells = events[0].data.slice(287, 288)[0] as u8;
+  let blue_x_coords = events[0].data.slice(160, 160 + num_blue_cells);
+  let blue_y_coords = events[0].data.slice(224, 224 + num_blue_cells);
+  // let number_1_x = events[0].data.slice(160, 161); // should be 01.
+  // let number_1_y = events[0].data.slice(224, 225); // 224 - 160 = 64
+  // let number_2_x = events[0].data.slice(161, 162);
+  // let number_2_y = events[0].data.slice(225, 226);
+  // let number_3_x = events[0].data.slice(162, 163);
+  // let number_3_y = events[0].data.slice(226, 227);
+
+  let blue_1_x = events[0].data.slice(288, 289); // 288-224 = 64
+  let blue_1_y = events[0].data.slice(352, 353); // 352-288 = 64
+  let blue_2_x = events[0].data.slice(289, 290);
+  let blue_2_y = events[0].data.slice(353, 354);
+  let blue_3_x = events[0].data.slice(290, 291);
+  let blue_3_y = events[0].data.slice(354, 355);
+
+  return blue_1_x;
 
   // let number_1_bytes = events[0].data.slice(0, 32);
   // let number_2_bytes = events[1].data.slice(32, 64);
